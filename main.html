@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hello world</h1>
+    <ul></ul>
+    <script>
+        const electron = require('electron');
+        const { ipcRenderer } = require("electron")
+        console.log("djdjnsdjnljdsjkla")
+        ipcRenderer.on('cool1',( e, t)=>{
+            console.log("=========",t)
+            console.log("her ein main ")
+        })
+        ipcRenderer.on('todo:add',(event, todo)=>{
+            console.log("todo is ", todo)
+            const li = document.createElement('li');
+            const text = document.createTextNode(todo);
+
+            li.appendChild(text);
+            document.querySelector('ul').appendChild(li);
+        })
+        ipcRenderer.on('todo:clear',(event, message)=>{
+            const list = document.querySelector('ul');
+            while(list.hasChildNodes()){
+                console.log("in child node");
+                list.removeChild(list.firstChild);
+            }
+        })
+    </script>
+</body>
+</html>
